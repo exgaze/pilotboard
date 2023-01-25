@@ -1,73 +1,50 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# 게시판 웹 서버 프로젝트
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 진행 기간
+- 2023-01-16 ~ 2023-01-25
+<br>
 
-## Description
+## 기술 스택
+- Typescript
+- Nest.js
+- GraphQL
+- PostgresQL
+- TypeORM
+- Passport
+- JWT
+- Bcrypt
+- class-transformer
+- class-validator
+- Git
+<br>
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 과제 개관
+- Nest.js를 이용한 게시판 웹서버 구현
+- GraphQLAPI 구성
+- PostgresQL DB사용
+- TypeORM로 DB제어
+<br>
 
-## Installation
+## 구현 사항
+- GraphQL Query, Mutation 각각에 대해 입력 값이 존재하는 경우, 단일 입력이 아닌 한 DTO를 작성하여 제어
 
-```bash
-$ npm install
-```
+#### 회원가입, 로그인 및 인증
+- Passport를 이용한 인증 전반 제어
+- 이메일과 비밀번호를 이용하여 회원가입이 가능하고, 로그인이 가능하도록 구현
+- class-validator을 이용하여 이메일 입력 형식 확인
+- 전달받은 비밀번호를 bcrypt를 이용하여 암호화
+- 로그인을 시도할 경우, 전달받은 이메일과 비밀번호의 정보를 db와 비교
+- 일치하는 유저가 있는 경우, db에 저장된 user의 id정보를 바탕으로 jwt를 이용하여 엑세스 토큰을 발행함
+- 발행한 토큰의 유효기간은 하루로 정하였음
+- Header의 Authorization부분에 토큰 저장 여부를 확인
+- 토큰을 decode하여 내부의 userId를 반환 
+<br>
 
-## Running the app
+#### 게시판
+- 글의 생성, 수정, 삭제, 코멘트 생성, 수정, 삭제시 jwt인증을 거침
+- 게시판 불러오기 및 글 페이지는 인증을 요구하지 않음
+- 생성순서 및 역순으로 게시판 정렬을 가능하도록 구현
+- 제목, 내용 각각의 경우 글의 검색이 가능하도록 구현
+- 댓글의 경우 대댓글 기능 구현
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
