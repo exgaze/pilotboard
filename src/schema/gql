@@ -1,0 +1,97 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Board {
+  id: Int!
+  title: String!
+  context: String!
+}
+
+type Comment {
+  id: Int!
+  content: String!
+  depth: Float!
+  boardId: Int!
+}
+
+type User {
+  id: Int!
+  email: String!
+  password: String!
+  nickname: String!
+  description: String!
+  boards: [Board!]
+  comments: [Comment!]
+}
+
+type LoginResponse {
+  access_token: String!
+}
+
+type Query {
+  getUser: User!
+  login(loginUserInput: LoginUserInput!): LoginResponse!
+  getBoards(sort: String!, searchOption: SearchOptions!): [Board!]!
+  getBoard(boardId: Float!): Board!
+  getComments(boardId: Float!): [Comment!]!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
+}
+
+input SearchOptions {
+  title: String
+  context: String
+}
+
+type Mutation {
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  signUp(createUserInput: CreateUserInput!): LoginResponse!
+  createBoard(createBoardInput: CreateBoardInput!): Board!
+  updateBoard(updateBoardInput: UpdateBoardInput!): Board!
+  deleteBoard(boardId: Float!): String!
+  createComment(CreateCommentInput: CreateCommentInput!): Comment!
+  updateComment(updateCommentInput: UpdateCommentInput!): Comment!
+  deleteComment(commentId: Float!): String!
+}
+
+input UpdateUserInput {
+  id: Float!
+  email: String!
+  password: String!
+  nickname: String!
+  description: String
+}
+
+input CreateUserInput {
+  email: String!
+  password: String!
+  nickname: String!
+  description: String
+}
+
+input CreateBoardInput {
+  title: String!
+  context: String!
+}
+
+input UpdateBoardInput {
+  id: Float!
+  title: String!
+  context: String!
+}
+
+input CreateCommentInput {
+  content: String!
+  depth: Float!
+  boardId: Float!
+  parentCommentId: Float
+}
+
+input UpdateCommentInput {
+  id: Float!
+  content: String!
+}
